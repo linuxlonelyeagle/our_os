@@ -6,6 +6,7 @@ LOADER_START_SECTOR equ 0x2
 ;-------------- gdt 描述符属性 ------------- 
 DESC_G_4K equ 1_00000000000000000000000b 
 DESC_D_32 equ 1_0000000000000000000000b  ; 表示指令中有效地址和操作数是32位的，指令有效地址用eip寄存器 
+PAGE_DIR_TABLE_POS equ 0x100000
 DESC_L    equ 0_000000000000000000000b ; 64 位代码标记,此处标记为 0 便可
 DESC_AVL equ 0_00000000000000000000b ; CPU 不用此位,暂置为 0
 DESC_LIMIT_CODE2  equ 1111_0000000000000000b ;段界限第二部分
@@ -33,3 +34,24 @@ RPL2 equ 10b
 RPL3 equ 11b 
 TI_GDT equ 000b 
 TI_LDT equ 100b 
+
+
+
+
+
+
+;----------页表相关属性
+PG_P equ 1b  
+PG_RW_R equ 00b     ; 可读不可写
+PG_RW_W equ 10b     ; 可读可写
+PG_US_S equ 000b    ; 普通用户
+PG_US_U equ 100b    ; 超级用户
+
+;----------内核的扇区号和地址
+KERNEL_START_SECTOR equ 9
+KERNEL_BIN_BASE_ADDR equ 0x70000
+KERNEL_ENTRY_POINT equ 0xc0001500
+
+
+;-------------程序头的相关属性
+PT_NULL equ 0
